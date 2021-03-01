@@ -1,0 +1,97 @@
+Program:
+    'begin'
+        commands*=Statement
+    'end'
+;
+
+Statement:
+    Definition | Command | StatementIf | StatementWhile
+;
+
+Definition:
+    Procedure
+;
+
+Procedure:
+    'sub' name=ID
+    ('(' param+=ID ')')?
+    'begin' 
+    commands+=Statement
+    'end'
+;
+
+StatementWhile:
+    'while' cond=Expression
+    commands+=Statement
+    'end'
+;
+
+StatementIf:
+    'if' cond=Expression
+    'then' commands+=Statement
+    ('else' else_commands+=Statement)? 
+    'end'
+;
+
+Expression:
+    Not | Var | Check | Dir | BeeperCheck |
+     And |
+    Or 
+;
+
+Var:
+    '(' expr=ID ')'
+;
+
+Or:
+    '(' left=Expression 'or' right=Expression ')'
+;
+
+And:
+    '(' left=Expression 'and' right=Expression ')'
+;
+
+Not:
+    'not' ('(' expr=Expression ')' | expr=Expression)
+;
+
+Command:
+    Break | Exit | Turn | Move | Beeper | SubCall
+;
+
+SubCall:
+    'call' name=[Procedure] 
+    ('(' param+=Expression ')')?
+;
+
+Turn:
+    'turn' (where='left' | where='right')
+;
+
+Exit:
+    'exit'
+;
+
+Move:
+    'move'
+;
+
+Break:
+    'break'
+;
+
+Beeper:
+    'beeper' (action='pick' | action='put')
+;
+
+BeeperCheck:
+    'is_beeper'
+;
+
+Check:
+    'front_is_treasure' | 'front_is_blocked' 
+;
+
+Dir:
+    'north' | 'south' | 'west' | 'east'
+;

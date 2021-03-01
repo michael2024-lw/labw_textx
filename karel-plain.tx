@@ -1,0 +1,12 @@
+Program:
+    'begin'
+        commands*=Command
+    'end'
+;
+
+Command: 'exit' | Turn | 'move' | Beeper;
+
+Turn: 'turn' (where='left' | where='right');
+
+Beeper: 'beeper' (action='pick' | action='put');
+

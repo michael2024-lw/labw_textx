@@ -1,0 +1,18 @@
+begin
+    turn right
+    move
+    turn left
+    move
+
+    turn right
+    move
+    turn left
+    move
+
+    turn right
+    move
+    turn left
+    move
+    
+    exit
+end

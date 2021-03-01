@@ -1,0 +1,15 @@
+begin
+    while not is_beeper
+        turn right
+        if front_is_blocked
+        then
+            while front_is_blocked
+                turn left
+            end
+        end
+
+        move
+    end
+
+    exit
+end

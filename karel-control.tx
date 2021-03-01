@@ -1,0 +1,76 @@
+Program:
+    'begin'
+        commands*=Statement
+    'end'
+;
+
+Statement:
+    Command | StatementIf | StatementWhile
+;
+
+StatementWhile:
+    'while' cond=Expression
+    commands+=Statement
+    'end'
+;
+
+StatementIf:
+    'if' cond=Expression
+    'then' commands+=Statement
+    ('else' else_commands+=Statement)? 
+    'end'
+;
+
+Expression:
+    Not | Check | Dir | BeeperCheck |
+     And |
+    Or 
+;
+
+Var:
+    '(' expr=ID ')'
+;
+
+Or:
+    '(' left=Expression 'or' right=Expression ')'
+;
+
+And:
+    '(' left=Expression 'and' right=Expression ')'
+;
+
+Not:
+    'not' ('(' expr=Expression ')' | expr=Expression)
+;
+
+Command:
+    Exit | Turn | Move | Beeper
+;
+
+Turn:
+    'turn' (where='left' | where='right')
+;
+
+Exit:
+    'exit'
+;
+
+Move:
+    'move'
+;
+
+Beeper:
+    'beeper' (action='pick' | action='put')
+;
+
+BeeperCheck:
+    'is_beeper'
+;
+
+Check:
+    'front_is_treasure' | 'front_is_blocked' 
+;
+
+Dir:
+    'north' | 'south' | 'west' | 'east'
+;
