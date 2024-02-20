@@ -1,0 +1,28 @@
+begin
+    sub SearchForBias
+    begin
+        turn right
+        if front_is_blocked
+        then
+            while front_is_blocked
+                turn left
+            end
+        end
+    end
+
+    sub DoMovement
+    begin
+    	for 2
+	    move
+	    break
+	end
+    end
+
+    while not is_beeper
+        call SearchForBias
+	
+	call DoMovement
+    end
+
+    exit
+end

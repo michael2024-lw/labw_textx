@@ -5,7 +5,7 @@ Program:
 ;
 
 Statement:
-    Definition | Command | StatementIf | StatementWhile
+    Definition | Command | StatementIf  | StatementFor | StatementWhile
 ;
 
 Definition:
@@ -16,6 +16,12 @@ Procedure:
     'sub' name=ID
     ('(' param+=ID ')')?
     'begin' 
+    commands+=Statement
+    'end'
+;
+
+StatementFor:
+    'for' times_count=INT
     commands+=Statement
     'end'
 ;

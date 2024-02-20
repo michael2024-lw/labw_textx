@@ -2,10 +2,10 @@ import sys
 from textx import metamodel_from_file
 from karel_robot.run import *
 
-robot_mm = metamodel_from_file('karel.tx')
+robot_mm = metamodel_from_file('karel-structured.tx')
 
 
-robot_model = robot_mm.model_from_file("maze.karel")
+robot_model = robot_mm.model_from_file("maze-procedure.karel")
 
 def is_(o, name):
     return o.__class__.__name__ == name
@@ -114,6 +114,14 @@ class Robot(object):
                     self.ctx[-1]['break'] = False
                     break
         
+        if is_(s, 'StatementFor'):
+            for i in range(s.times_count):
+                self.process_statements(s.commands)
+
+                if self.ctx[-1]['break']:
+                    self.ctx[-1]['break'] = False
+                    break
+
         if is_(s, 'StatementIf'):
             if self.process_expression(s.cond):
                 self.process_statements(s.commands)
