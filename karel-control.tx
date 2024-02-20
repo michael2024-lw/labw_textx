@@ -5,11 +5,17 @@ Program:
 ;
 
 Statement:
-    Command | StatementIf | StatementWhile
+    Command | StatementIf | StatementFor | StatementWhile
 ;
 
 StatementWhile:
     'while' cond=Expression
+    commands+=Statement
+    'end'
+;
+
+StatementFor:
+    'for' times_count=INT
     commands+=Statement
     'end'
 ;

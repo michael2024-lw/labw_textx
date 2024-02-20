@@ -2,7 +2,7 @@ import sys
 from textx import metamodel_from_file
 from karel_robot.run import *
 
-robot_mm = metamodel_from_file('karel.tx')
+robot_mm = metamodel_from_file('karel-control.tx')
 
 
 robot_model = robot_mm.model_from_file("maze.karel")
@@ -72,6 +72,10 @@ class Robot(object):
 
     def process_statement(self, s):
         self.process_command(s)
+        
+        if is_(s, 'StatementFor'):
+            for i in range(s.times_count):
+                self.process_statements(s.commands)
 
         if is_(s, 'StatementWhile'):
             while self.process_expression(s.cond):
